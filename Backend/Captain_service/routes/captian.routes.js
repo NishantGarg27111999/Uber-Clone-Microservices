@@ -26,7 +26,7 @@ router.get('/getMoneyEarned/:captainId',
     query('captainId').isString().withMessage('not valid captianId'),
 
     captainController.getMoneyEarned);
-router.get('/:captainId', captainController.getCatptainDetails);
+router.get('/:captainId', captainController.getCaptainDetails);
 
 
 module.exports=router;

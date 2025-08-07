@@ -61,6 +61,7 @@ module.exports.getFare=async(req,res)=>{
         return res.status(400).json({errors: errors.array()});
     }
     try{
+        console.log('get-fare');
     const {pickup,destination}=req.query;
     const fare=await rideService.getFare(pickup,destination);
     return res.status(200).json(fare);
@@ -139,7 +140,7 @@ module.exports.acceptRide=async(req,res,next)=>{
 
 module.exports.getAddressCoordinate=async(req,res,next)=>{
     try{
-        console.log('ride controller map');
+        // console.log('ride controller map');
     const {address}=req.query;
     const addressCoordinate=await mapService.getAddressCoordinate(address);
     return res.status(200).json(addressCoordinate);
@@ -152,10 +153,12 @@ module.exports.getAddressCoordinate=async(req,res,next)=>{
 
 module.exports.finishRide=async(req,res,next)=>{
     try{
-        const {rideId}=req.body;
-        console.log(rideId);
-        await rideModel.findByIdAndUpdate(ride._id,{status:'completed'});
-        return;
+        console.log('inside finishride...')
+        const rideId=req.params.rideId;
+        console.log('finish ride in ride controller: ',rideId);
+        const rideDetails= await rideModel.findByIdAndUpdate(rideId,{status:'completed'},{new:true});
+        
+        return res.status(200).json(rideDetails);
         
     }
     catch(err){

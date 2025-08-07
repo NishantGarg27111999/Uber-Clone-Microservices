@@ -39,6 +39,10 @@ function RidePopUp({PanelOpenClose,ridePopUpRef,confirmRidePopUpPanelRef,ride,se
                             console.log('mein yha hun');
                             
                             sendMessage('ride-accepted',{rideId:ride._id, captainId:captain._id});
+                            // setRide((prev)=>{
+                            //     console.log('ride accepted: ',{...ride,captain:captain._id});
+                            //     return {...ride,captain:captain._id};
+                            // })
                         }}>Accept</button>
                         
                         </div>

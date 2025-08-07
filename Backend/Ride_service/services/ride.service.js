@@ -40,7 +40,7 @@ module.exports.getFare = async (pickup, destination) => {
         bike: Math.round(baseFare.motorcycle + ((distanceTime.distance.value) / 1000 * perKmRate.motorcycle) + ((distanceTime.duration.value) / 60 * perMinuteRate.motorcycle)),
     }
 
-    return fare;
+    return {fare,distance: ((distanceTime.distance.value) / 1000)};
 }
 
 
@@ -61,11 +61,12 @@ module.exports.createRide = async ({ user, pickup, destination, vehicleType }) =
     // console.log("k hall h");
     // console.log(user,pickup,destination,vehicleType);
 
-    const fare = await this.getFare(pickup, destination);
+    const {fare,distance} = await this.getFare(pickup, destination);
     const ride = rideModel.create({
         user,
         pickup,
         destination,
+        distance,
         otp: getOTP(6),
         fare: fare[vehicleType],
 
@@ -81,7 +82,7 @@ module.exports.confirmRide = async ({ rideId, otp }) => {
         throw new Error('RideId and OTP are requried');
     }
     const ride = await rideModel.findOne({ _id: rideId }).select('+otp');
-    console.log(ride);
+    console.log('ride at ride.service.js :',ride);
 
     if (!ride) {
         throw new Error('Ride not found');
@@ -104,9 +105,11 @@ module.exports.confirmRide = async ({ rideId, otp }) => {
     const captainInfo = await axios.get(`http://localhost:4000/captains/${ride.captain}`);
     console.log(captainInfo.data);
     console.log('upper naya h');
-    rideCopy = ride.toObject();
+    
+    // console.log('rideCopy in confirm ride: ',rideCopy);
+    const rideupdate=await rideModel.findOneAndUpdate({ _id: rideId }, { status: "ongoing" },{new:true});
+    rideCopy = rideupdate.toObject();
     rideCopy.captain = captainInfo.data;
-    await rideModel.findOneAndUpdate({ _id: rideId }, { status: "ongoing" });
     ride.otp = "";
 
 

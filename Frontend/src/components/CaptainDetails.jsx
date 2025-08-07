@@ -1,4 +1,4 @@
-import { faClock, faGaugeSimpleHigh, faWallet } from "@fortawesome/free-solid-svg-icons"
+import { faClock, faGaugeSimpleHigh, faRoad } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import user from '../assets/user.jpg'
 import { captainDataContext } from "../contexts/CaptainContext"
@@ -8,6 +8,10 @@ import axios from "axios"
 function CaptainDetails(){
     const {captain}=useContext(captainDataContext);
     const [moneyEarnedToday, setMoneyEarnedToday]=useState(0);
+    const [distanceToday, setDistanceToday]=useState(0);
+    const [ridesToday, setRidesToday]=useState(0);
+
+
     console.log('in captaindetails: ',captain);
 
     useEffect(()=>{
@@ -18,9 +22,14 @@ function CaptainDetails(){
         }
         try{
         console.log('inside useEffect: ',captain);
-        const response=await axios.get(`http://localhost:4000/captains/getMoneyEarned/${captain._id}`);
-        console.log(response.data);
-        setMoneyEarnedToday(response.data);
+        const response=await axios.get(`http://localhost:4000/captains/${captain._id}`);
+        // console.log(response);
+        console.log('fetched money: ',response.data);
+        const captainDetails=response.data;
+        console.log('captaindetails: ',captainDetails);
+        setMoneyEarnedToday(captainDetails.moneyEarned);
+        setRidesToday(captainDetails.ridesToday);
+        setDistanceToday(captainDetails.distanceCoveredToday);
         }
         catch(err){
             console.log(err.message);
@@ -38,7 +47,7 @@ function CaptainDetails(){
 
                     </div>
                     <div className='text-right'>
-                        <div className='text-xl font-semibold'>₹295</div>
+                        <div className='text-xl font-semibold'>₹{moneyEarnedToday}</div>
                         <div className='text-sm font-light text-gray-500'>Earned</div>
                     </div>
                 </div>
@@ -51,12 +60,12 @@ function CaptainDetails(){
                     </div> */}
                     <div className='flex flex-col justify-center items-center'>
                     <FontAwesomeIcon icon={faGaugeSimpleHigh} className='text-xl ' />
-                        <div className='text-lg font-medium'>10.2</div>
-                        <div  className='text-xs '>Distance</div>
+                        <div className='text-lg font-medium'>{distanceToday}</div>
+                        <div  className='text-xs '>Kms Distance</div>
                     </div>
                     <div className='flex flex-col justify-center items-center'>
-                    <FontAwesomeIcon icon={faWallet} className='text-xl ' />
-                        <div className='text-lg font-medium'>10.2</div>
+                    <FontAwesomeIcon icon={faRoad} className='text-xl ' />
+                        <div className='text-lg font-medium'>{ridesToday}</div>
                         <div  className='text-xs '>Rides</div>
                     </div>
                 </div>

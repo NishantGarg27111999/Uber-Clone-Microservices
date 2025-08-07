@@ -114,7 +114,7 @@ let initializeSocket = (server) => {
                 const ride = response.data;
                 const captainDetails = await axios.get(`http://localhost:4000/captains/${captainId}`);
                 ride.captain = captainDetails.data;
-
+                console.log('ride in accect-ride in socket.js ', ride);
 
                 io.to(await redis.get(`user_socket:${ride.user}`)).emit('ride-accepted', ride);
 
@@ -137,14 +137,21 @@ let initializeSocket = (server) => {
             console.log('ride finished');
             console.log(ride);
             try{
-            const rideRes=await axios.put(`http://localhost:4000/ride/${ride._id}/complete`);
-            redis.publish('ride-completed',JSON.stringify({captianId: ride._id, fare: ride.fare}));
+                console.log('before axios.put request');
+            const response=await axios.put(`http://localhost:4000/ride/${ride._id}/complete`);
+            const rideRes=response.data;
+            console.log('rideRes : ', rideRes);
+            console.log('after udating ride complete status');
+            redis.publish('ride-completed',JSON.stringify({captainId: rideRes.captain, fare: rideRes.fare,distance:rideRes.distance}));
+            console.log('mein chala in ride finished');
+            const userSocketId = await redis.get(`user_socket:${rideRes.user}`);
+            console.log('userSocketId: ',userSocketId);
+            io.to(userSocketId).emit('ride-finished');
             }
             catch(err){
-                console.error(err);
+                console.error(err.message);
             }
-            const userSocketId = await redis.get(`user_socket:${ride.user._id}`);
-            io.to(userSocketId).emit('ride-finished');
+            
         })
 
         socket.on('cancel-ride', (socketId) => {

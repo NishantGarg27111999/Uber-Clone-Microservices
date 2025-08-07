@@ -116,11 +116,7 @@ function Home() {
 
     },[socket]);
 
-    // socket.on('ride-started', (ride) => {
-    //     console.log('ride started');
 
-    //     navigate('/riding', { state: { ride: ride } })
-    // })
 
     useEffect(()=>{
         socket.on('ride-finished', () => {
@@ -132,13 +128,7 @@ function Home() {
     })
     },[socket])
 
-    // socket.on('ride-finished', () => {
-    //     console.log('ride completed on userside');
-    //     setContent('Ride finished');
-    //     setCaptainLocation(null);
 
-    //     navigate('/home');
-    // })
 
 
 
@@ -172,19 +162,20 @@ function Home() {
 
 
 
-        const fare = await axios.get(`${import.meta.env.VITE_BASE_URL}/ride/get-fare`, {
+        const fareRes = await axios.get(`${import.meta.env.VITE_BASE_URL}/ride/get-fare`, {
             params: { pickup: rideData.pickUp, destination: rideData.destination },
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
         });
+        const {fare}=fareRes.data;
         console.log(fare);
 
         setRide((prevState) => ({
             ...prevState,
             pickUp: rideData.pickUp,
             destination: rideData.destination,
-            fare: fare.data
+            fare: fare
         }))
 
 

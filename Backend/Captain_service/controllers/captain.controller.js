@@ -3,13 +3,21 @@ const captainService = require('../services/captain.service')
 const captainModel = require('../models/captain.model');
 const blackListTokenModel = require('../models/blackListToken.model');
 const { redisSubscriber } = require('../shared/redis-client');
+const { rideExpiryQueue } = require('../../Ride_service/shared/redis-client');
+const cron=require('../cron');
 
+
+
+
+redisSubscriber.subscribe('ride-completed');
 redisSubscriber.on('message', async (channel, message) => {
     if (channel == 'ride-completed') {
         console.log('ride-complete subcriber at captain service');
-        const { captainId, fare } = message;
+        const { captainId, fare,distance } = JSON.parse(message);
         try{
-        await captainModel.findByIdAndUpdate(captainId, { $inc: { moneyEarned: fare } });
+        const captain=await captainModel.findByIdAndUpdate(captainId, { $inc: { moneyEarned: fare } },{new:true,strict:false});
+        await captainModel.findByIdAndUpdate(captainId, { $inc: { ridesToday: 1 } },{new:true,strict:false});
+        await captainModel.findByIdAndUpdate(captainId, { $inc: { distanceCoveredToday: distance } },{new:true,strict:false});
         console.log(`Updated captain ${captainId} with fare ${fare}`);
         }
         catch(err){
@@ -87,7 +95,7 @@ module.exports.logoutCaptain = async (req, res, next) => {
 
 }
 
-module.exports.getCatptainDetails = async (req, res, next) => {
+module.exports.getCaptainDetails = async (req, res, next) => {
 
 
     const captain = await captainModel.findById(req.params.captainId);
@@ -104,16 +112,18 @@ module.exports.getCatptainDetails = async (req, res, next) => {
 
 module.exports.getMoneyEarned = async (req, res, next) => {
     try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ error: errors });
-        }
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //     return res.status(400).json({ error: errors });
+        // }
 
-        const { captainId } = req.query.captainId;
+        const captainId = req.params.captainId;
 
         const captain = await captainModel.findById(captainId);
+        const captainCopy=captain.toObject();
+        console.log('captain get money: ',captainCopy.moneyEarned);
         if (captain) {
-            return res.status(200).json(captain.moneyEarned);
+            return res.status(200).json(captainCopy.moneyEarned);
         }
     }
     catch (err) {
