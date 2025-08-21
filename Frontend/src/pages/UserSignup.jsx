@@ -20,10 +20,10 @@ function UserSignup() {
         e.preventDefault();
 
         
-        // console.log(userData);
+         console.log(userData);
         const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`,userData);
         const data=response.data;
-        // console.log(response.data);
+         console.log(response.data);
         
         if(response.status==201){
             setUser(data.createdUser);
