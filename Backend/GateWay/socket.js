@@ -21,7 +21,7 @@ let initializeSocket = (server) => {
 
     io = new Server(server, {
         cors: {
-            origin: 'http://localhost:5173', // <-- allow frontend origin
+            origin: '*', // <-- allow frontend origin
             methods: ['GET', 'POST'],
             credentials: true
         }
