@@ -102,7 +102,7 @@ module.exports.confirmRide = async ({ rideId, otp }) => {
     
     try{
     
-    const captainInfo = await axios.get(`http://localhost:4000/captains/${ride.captain}`);
+    const captainInfo = await axios.get(`https://uberclone-captain-service.onrender.com/${ride.captain}`);
     console.log(captainInfo.data);
     console.log('upper naya h');
     
