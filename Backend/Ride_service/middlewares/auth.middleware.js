@@ -11,7 +11,7 @@ module.exports.authUser = async (req, res, next) => {
             console.log('no token');
             return res.status(401).json({ message: 'No token provided' });
         }
-        const response = await axios.get('http://localhost:4000/user/profile', {
+        const response = await axios.get('https://uberclone-user-service.onrender.com/profile', {
             headers: {
                 Authorization: `bearer ${token}`,
             },
