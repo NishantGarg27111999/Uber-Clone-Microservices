@@ -11,9 +11,9 @@ const server=http.createServer(app);
 
 initializeSocket(server);
 app.use(cors());
-app.use('/user',proxy('http://localhost:4001'));
-app.use('/captains',proxy('http://localhost:4002'));
-app.use('/ride',proxy('http://localhost:4003'));
+app.use('/user',proxy('https://uberclone-user-service.onrender.com'));
+app.use('/captains',proxy('https://uberclone-captain-service.onrender.com'));
+app.use('/ride',proxy('https://uberclone-ride-service.onrender.com'));
 
 const port=process.env.PORT || 4000;
 server.listen(port,()=>{
