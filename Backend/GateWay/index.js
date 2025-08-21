@@ -15,7 +15,7 @@ app.use('/user',proxy('http://localhost:4001'));
 app.use('/captains',proxy('http://localhost:4002'));
 app.use('/ride',proxy('http://localhost:4003'));
 
-
-server.listen(4000,()=>{
+const port=process.env.PORT || 4000;
+server.listen(port,()=>{
     console.log('Gateway service running at 4000 port');
 })

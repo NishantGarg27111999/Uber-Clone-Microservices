@@ -16,10 +16,11 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use('/',captainRoutes);
 
+const port=process.env.PORT || 4002;
 
 
 
 
-app.listen(4002,()=>{
+app.listen(port,()=>{
     console.log('Captain service running at 4002 port');
 })

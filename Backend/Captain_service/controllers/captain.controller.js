@@ -3,7 +3,7 @@ const captainService = require('../services/captain.service')
 const captainModel = require('../models/captain.model');
 const blackListTokenModel = require('../models/blackListToken.model');
 const { redisSubscriber } = require('../shared/redis-client');
-const { rideExpiryQueue } = require('../../Ride_service/shared/redis-client');
+// const { rideExpiryQueue } = require('../../Ride_service/shared/redis-client');
 const cron=require('../cron');
 
 

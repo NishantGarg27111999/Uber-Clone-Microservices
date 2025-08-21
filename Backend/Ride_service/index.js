@@ -9,6 +9,7 @@ const rideRoutes=require('./routes/ride.routes');
 
 connectToDb();
 
+const port=process.env.PORT || 4003;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -18,6 +19,6 @@ app.use('/',rideRoutes);
 
 
 
-app.listen(4003,()=>{
-    console.log('Captain service running at 4003 port');
+app.listen(port,()=>{
+    console.log('Ride service running at 4003 port');
 })

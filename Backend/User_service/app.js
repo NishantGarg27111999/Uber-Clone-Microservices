@@ -8,7 +8,7 @@ const cookieParser=require('cookie-parser');
 const connectToDb=require('./db/db');
 
 connectToDb();
-
+const port=process.env.PORT || 4001;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -17,6 +17,6 @@ app.use('/',userRoutes)
 
 
 
-app.listen(4001,()=>{
+app.listen(port,()=>{
     console.log('User service running at 4001 port');
 })

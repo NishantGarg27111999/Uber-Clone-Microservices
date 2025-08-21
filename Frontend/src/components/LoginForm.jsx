@@ -3,6 +3,7 @@ import { userDataContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { captainDataContext } from "../contexts/CaptainContext";
+import RedPopUp from "./RedPopUp";
 
 function LoginForm({postURL,isCaptain}) {
     const[credentials,setCredentials]=useState({
@@ -12,13 +13,18 @@ function LoginForm({postURL,isCaptain}) {
 
     const{user,setUser}=useContext(userDataContext);
     const{setCaptain}=useContext(captainDataContext);
+    const [content, setContent] = useState("");
+     const [showRedPopUp, setShowRedPopUp] = useState(false);
     const navigate=useNavigate();
 
     const submitHandler=async (e)=>{
+        try{
         e.preventDefault();
         console.log(postURL);
         const response=await axios.post(postURL,credentials);
+        console.log(response.data);
         if(response.status==200){
+            console.log('thick h');
             const data=response.data;
             // console.log(data);
             isCaptain?setCaptain(data.captain):setUser(data.user);
@@ -29,9 +35,21 @@ function LoginForm({postURL,isCaptain}) {
             isCaptain?navigate('/captain-home'):navigate('/home');
         }
     }
+        catch(err){
+            console.log('unauthorized chala...');
+            setContent('Invalid username or password ')
+            setShowRedPopUp(true);
+            setTimeout(() => {
+                setShowRedPopUp(false);
+            }, 3000);
+        }
+
+    }
 
     return (
+        
         <div className="flex flex-col justify-center items-center ">
+            {showRedPopUp && <RedPopUp color='red' content={content} />}
         <form className="flex flex-col mt-9 mb-7 w-full sm:w-[40%] sm:mt-18  sm:p-7 sm:rounded-lg sm:bg-gray-300" onSubmit={submitHandler}>
             <label htmlFor="email" className="text-xl font-medium mb-2">What's your email</label>
             <input type="email" name="email" id="email" required className="bg-[#eeeeee] px-4 py-2 mb-5 rounded-lg" placeholder="email@example.com" value={credentials.email} onChange={(e)=>{
