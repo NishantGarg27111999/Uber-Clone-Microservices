@@ -34,6 +34,7 @@ module.exports.registerCaptain = async (req, res, next) => {
     console.log("captain registeration...");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log("errrororroror....");
         return res.status(400).json({ error: errors });
     }
     console.log("after error cehck...");
