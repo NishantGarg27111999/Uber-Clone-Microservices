@@ -23,4 +23,5 @@ router.get('/:userId',userController.getUserDetails);
 
 
 
+
 module.exports=router;
