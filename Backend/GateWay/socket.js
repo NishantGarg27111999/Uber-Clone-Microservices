@@ -88,7 +88,7 @@ let initializeSocket = (server) => {
             try {
                 await redis.geoadd('captains_locations', lng, ltd, captainId);
 
-                const response = await axios.get(`http://localhost:4000/ride/active-ride/${captainId}`);
+                const response = await axios.get(`https://uberclone-gateway-service.onrender.com/ride/active-ride/${captainId}`);
                 if (response.status == 200) {
                     const activeRide = response.data;
                     const userSocket = await redis.get(`user_socket:${activeRide.user}`);
@@ -105,7 +105,7 @@ let initializeSocket = (server) => {
 
         socket.on('ride-accepted', async ({ rideId, captainId }) => {
             try {
-                const response = await axios.post(`http://localhost:4000/ride/accept-ride`, {
+                const response = await axios.post(`https://uberclone-gateway-service.onrender.com/ride/accept-ride`, {
                     rideId,
                     captainId
                 });
@@ -138,7 +138,7 @@ let initializeSocket = (server) => {
             console.log(ride);
             try{
                 console.log('before axios.put request');
-            const response=await axios.put(`http://localhost:4000/ride/${ride._id}/complete`);
+            const response=await axios.put(`https://uberclone-gateway-service.onrender.com/ride/${ride._id}/complete`);
             const rideRes=response.data;
             console.log('rideRes : ', rideRes);
             console.log('after udating ride complete status');
