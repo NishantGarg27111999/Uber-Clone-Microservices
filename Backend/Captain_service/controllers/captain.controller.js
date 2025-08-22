@@ -31,6 +31,7 @@ redisSubscriber.on('message', async (channel, message) => {
 
 
 module.exports.registerCaptain = async (req, res, next) => {
+    console.log("captain registeration...");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ error: errors });
