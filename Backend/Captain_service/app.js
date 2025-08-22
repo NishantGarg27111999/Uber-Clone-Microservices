@@ -14,8 +14,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
-app.use('/',captainRoutes);
 app.get('/health',(req,res)=> res.send("ok"));
+app.use('/',captainRoutes);
+
 
 const port=process.env.PORT || 4002;
 
