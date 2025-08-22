@@ -14,6 +14,7 @@ app.use(cors());
 app.use('/user',proxy('https://uberclone-user-service.onrender.com'));
 app.use('/captains',proxy('https://uberclone-captain-service.onrender.com'));
 app.use('/ride',proxy('https://uberclone-ride-service.onrender.com'));
+app.get('/health',(req,res)=> res.send("ok"));
 
 const port=process.env.PORT || 4000;
 server.listen(port,()=>{
