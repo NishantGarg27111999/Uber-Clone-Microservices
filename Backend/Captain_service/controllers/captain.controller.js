@@ -36,9 +36,12 @@ module.exports.registerCaptain = async (req, res, next) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ error: errors });
     }
+    console.log("after error cehck...");
 
     const { fullname, email, password, vehicle } = req.body;
+    
     const hashedPassword = await captainModel.hashPassword(password);
+     console.log("after hash cehck...");
     const captain = await captainService.createCaptain(
         {
 
