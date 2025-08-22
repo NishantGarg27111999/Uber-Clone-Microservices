@@ -112,7 +112,7 @@ let initializeSocket = (server) => {
                 console.log('Ride after accept: ');
                 console.log(response.data);
                 const ride = response.data;
-                const captainDetails = await axios.get(`http://localhost:4000/captains/${captainId}`);
+                const captainDetails = await axios.get(`https://uberclone-gateway-service.onrender.com/captains/${captainId}`);
                 ride.captain = captainDetails.data;
                 console.log('ride in accect-ride in socket.js ', ride);
 
