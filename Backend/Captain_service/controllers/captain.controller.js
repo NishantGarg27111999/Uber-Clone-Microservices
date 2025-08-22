@@ -107,9 +107,11 @@ module.exports.getCaptainDetails = async (req, res, next) => {
     const captain = await captainModel.findById(req.params.captainId);
 
     if (captain) {
+        console.log("captainfound...");
         return res.status(200).json(captain);
     }
     else {
+        console.log("err in getcaptandetails");
         return res.status(404).json({ message: 'captain do not exist' });
     }
 
