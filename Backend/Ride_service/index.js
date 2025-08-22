@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use('/',rideRoutes);
+app.get('/health',(req,res)=> res.send("ok"));
 
 
 
