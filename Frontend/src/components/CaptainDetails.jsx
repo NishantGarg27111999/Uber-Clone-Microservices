@@ -22,7 +22,7 @@ function CaptainDetails(){
         }
         try{
         console.log('inside useEffect: ',captain);
-        const response=await axios.get(`http://localhost:4000/captains/${captain._id}`);
+        const response=await axios.get(`${import.meta.env.VITE_BASE_URL}/captains/${captain._id}`);
         // console.log(response);
         console.log('fetched money: ',response.data);
         const captainDetails=response.data;
