@@ -35,7 +35,7 @@ function ConfirmRide({confirmRideRef,PanelOpenClose,vehicleImage,lookingForDrive
                         }} />
             <h2 className="text-xl font-medium mb-6">Confirm your Ride</h2>
             <div className="flex flex-col items-center gap-2">
-                <img src={`/src/assets/${ride.vehicleType}.jpg`} className="h-20  mb-4 " />
+                <img src={`../public/${ride.vehicleType}.jpg`} className="h-20  mb-4 " />
                 <div className="w-full text-lg font-medium p-2 flex items-center gap-4 border-b-2 border-b-gray-300"><FontAwesomeIcon icon={faLocationDot} className='  text-green-700 text-xl'/><div>{ride.pickUp}</div> </div>
                 <div className="w-full text-lg font-medium p-2 flex items-center gap-4 border-b-2 border-b-gray-300"> <FontAwesomeIcon icon={faLocationDot} className=' text-red-700 text-xl'/><div>{ride.destination}</div></div>
                 <div className="w-full text-lg font-medium p-2 flex items-center gap-4"> <FontAwesomeIcon icon={faWallet} className=' '/><div>₹ {ride.fare[ride.vehicleType]}</div></div>
