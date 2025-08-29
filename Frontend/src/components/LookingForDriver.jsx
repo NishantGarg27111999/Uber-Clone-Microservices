@@ -48,7 +48,7 @@ function LookingForDriver({ lookingForDriverRef, vehicleImage,PanelOpenClose,wai
             </div>
 
             <div className="flex flex-col items-center gap-2">
-                <img src={`/src/assets/${ride.vehicleType}.jpg`} className="h-20  mb-4" />
+                <img src={`/${ride.vehicleType}.jpg`} className="h-20  mb-4" />
                 <div className="w-full text-lg font-medium p-2 flex items-center gap-4 border-b-2 border-b-gray-300"><FontAwesomeIcon icon={faLocationDot} className='  text-green-700 text-xl' /><div>{ride.pickUp}</div> </div>
                 <div className="w-full text-lg font-medium p-2 flex items-center gap-4 border-b-2 border-b-gray-300"> <FontAwesomeIcon icon={faLocationDot} className=' text-red-700 text-xl' /><div>{ride.destination}</div></div>
                 <div className="w-full text-lg font-medium p-2 flex items-center gap-4"> <FontAwesomeIcon icon={faWallet} className=' ' /><div>₹ {ride.fare[ride.vehicleType]}</div></div>
