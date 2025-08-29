@@ -26,6 +26,7 @@ function ConfirmRide({confirmRideRef,PanelOpenClose,vehicleImage,lookingForDrive
 
         console.log(response);
     }
+    console.log(`/src/assets/${ride.vehicleType}.jpg`);
     
     return(
         <div ref={confirmRideRef} className='absolute bottom-0 w-screen py-5   px-4   transition-all duration-1500 ease-in-out overflow-hidden bg-white rounded-xl translate-y-full'>
