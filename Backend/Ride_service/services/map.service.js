@@ -30,8 +30,8 @@ module.exports.getAddressCoordinate=async( address )=>{
 module.exports.getDistanceTime=async(origin,destination)=>{
     const apikey=process.env.GOMAP_API_KEY;
     console.log('api key in map service: ', apikey);
-    const originCoordinate=await getAddressCoordinate(origin);
-    const destCoordinate=await getAddressCoordinate(destination);
+    const originCoordinate=await module.exports.getAddressCoordinate(origin);
+    const destCoordinate=await module.exports.getAddressCoordinate(destination);
     // const url=`https://maps.gomaps.pro/maps/api/distancematrix/json?destinations=${destination}&origins=${origin}&key=${apikey}`;
 
     const url=`https://us1.locationiq.com/v1/directions/driving/${originCoordinate.lng},${originCoordinate.ltd};${destCoordinate.lng},${destCoordinate.ltd}?key=${apikey}&overview=simplified&annotations=false`;
