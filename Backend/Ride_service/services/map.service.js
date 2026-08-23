@@ -38,8 +38,8 @@ module.exports.getDistanceTime=async(origin,destination)=>{
 
     try{
         const response=await axios.get(url);
-        if(response.data.status==='OK'){
-            console.log(response);
+        if(responsestatus==='OK'){
+            // console.log(response);
             // if(response.data.rows[0].elements[0].status==='ZERO_RESULTS'){
             //     throw new Error('No routes found');
 
@@ -72,7 +72,7 @@ module.exports.getAutoCompleteSuggestions=async(input)=>{
         const response=await axios.get(url);
         // console.log(response);
         console.log('waiti');
-        if( response.data.status==='OK'){
+        if( response.status==='OK'){
             return response.data[0].display_name;
         }
         else{
