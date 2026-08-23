@@ -34,7 +34,7 @@ module.exports.getDistanceTime=async(origin,destination)=>{
     const destCoordinate=await getAddressCoordinate(destination);
     // const url=`https://maps.gomaps.pro/maps/api/distancematrix/json?destinations=${destination}&origins=${origin}&key=${apikey}`;
 
-    const url=`https://us1.locationiq.com/v1/directions/driving/${originCoordinate.lng},${originCoordinate.ltd};${destCoordinate.lng},${destCoordinate.ltd}?key=${apikey}&overview=simplified&annotations=false`
+    const url=`https://us1.locationiq.com/v1/directions/driving/${originCoordinate.lng},${originCoordinate.ltd};${destCoordinate.lng},${destCoordinate.ltd}?key=${apikey}&overview=simplified&annotations=false`;
 
     try{
         const response=await axios.get(url);
@@ -65,14 +65,15 @@ module.exports.getDistanceTime=async(origin,destination)=>{
 
 module.exports.getAutoCompleteSuggestions=async(input)=>{
     const apikey=process.env.GOMAP_API_KEY;
-    const url=`https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${input}&key=${apikey}`;
+    // const url=`https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${input}&key=${apikey}`;
+    const url=` https://api.locationiq.com/v1/autocomplete?key=${apikey}&q=${input}`;
 
     try{
         const response=await axios.get(url);
         // console.log(response);
         console.log('waiti');
         if( response.data.status==='OK'){
-            return response.data.predictions;s
+            return response.data[0].display_name;
         }
         else{
             throw new Error('Unable to fetch suggestions');
