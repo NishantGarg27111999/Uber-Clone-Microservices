@@ -9,7 +9,7 @@ module.exports.getAddressCoordinate=async( address )=>{
     try{
         const response=await axios.get(url);
         console.log(response);
-        if(response.data.status==='OK'){
+        if(response.res.statusCode===200){
             // const location=response.data.results[0].geometry.location;
             const location=response.data[0];
             return {
@@ -29,7 +29,7 @@ module.exports.getAddressCoordinate=async( address )=>{
 
 module.exports.getDistanceTime=async(origin,destination)=>{
     const apikey=process.env.GOMAP_API_KEY;
-    console.log('api key in map service: ', apikey);
+    // console.log('api key in map service: ', apikey);
     const originCoordinate=await module.exports.getAddressCoordinate(origin);
     const destCoordinate=await module.exports.getAddressCoordinate(destination);
     // const url=`https://maps.gomaps.pro/maps/api/distancematrix/json?destinations=${destination}&origins=${origin}&key=${apikey}`;
