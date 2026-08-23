@@ -49,7 +49,7 @@ module.exports.getDistanceTime=async(origin,destination)=>{
 
             }
             // return response.data.rows[0].elements[0];
-            reutrn {distance:{value:response?.data?.routes[0].distance},duration:{value:response?.data?.routes[0].duration}};
+            return {distance:{value:response?.data?.routes[0].distance},duration:{value:response?.data?.routes[0].duration}};
         }
         else{
             console.log("error2");
