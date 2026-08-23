@@ -38,7 +38,7 @@ module.exports.getDistanceTime=async(origin,destination)=>{
 
     try{
         const response=await axios.get(url);
-        if(response.status==='OK'){
+        if(response.status==='Ok'){
             // console.log(response);
             // if(response.data.rows[0].elements[0].status==='ZERO_RESULTS'){
             //     throw new Error('No routes found');
