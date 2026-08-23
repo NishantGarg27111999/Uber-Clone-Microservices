@@ -14,7 +14,7 @@ module.exports.getAddressCoordinate=async( address )=>{
             const location=response.data[0];
             return {
                 ltd: location.lat,
-                lng: location.lng
+                lng: location.lon
             };
         }
         else{
