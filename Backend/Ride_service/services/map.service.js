@@ -3,13 +3,15 @@ const axios=require('axios');
 
 module.exports.getAddressCoordinate=async( address )=>{
     const apikey=process.env.GOMAP_API_KEY;
-    const url=`https://maps.gomaps.pro/maps/api/geocode/json?key=${apikey}&address=${address}`;
+    // const url=`https://maps.gomaps.pro/maps/api/geocode/json?key=${apikey}&address=${address}`;
+    const url=`https://us1.locationiq.com/v1/search?key=${apikey}&q=${address}&format=json`
 
     try{
         const response=await axios.get(url);
         // console.log(response.data);
         if(response.data.status==='OK'){
-            const location=response.data.results[0].geometry.location;
+            // const location=response.data.results[0].geometry.location;
+            const location=response.data[0];
             return {
                 ltd: location.lat,
                 lng: location.lng
