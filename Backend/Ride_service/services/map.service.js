@@ -8,8 +8,8 @@ module.exports.getAddressCoordinate=async( address )=>{
 
     try{
         const response=await axios.get(url);
-        console.log(response);
-        if(response.status===200){
+        // console.log(response);
+        if(response.status==200){
             // const location=response.data.results[0].geometry.location;
             const location=response.data[0];
             return {
