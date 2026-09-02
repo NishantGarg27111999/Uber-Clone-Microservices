@@ -72,7 +72,8 @@ let initializeSocket = (server) => {
         })
 
         socket.on('join', async ({ userType, user }) => {
-            console.log('A client has joined: ', socket.id);
+            console.log('A client socke id: ', socket.id);
+            console.log('A client id: ', user._id);
             console.log(userType);
 
             await redis.set(`user_socket:${user._id}`, socket.id);
