@@ -84,7 +84,7 @@ let initializeSocket = (server) => {
 
 
         socket.on('update-captain-location', async ({ captainId, ltd, lng }) => {
-            
+            console.log(captainId);
             try {
                 await redis.geoadd('captains_locations', lng, ltd, captainId);
 
