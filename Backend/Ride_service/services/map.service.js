@@ -1,10 +1,10 @@
 const axios=require('axios');
 // const captainModel = require('../models/captain.model');
-
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 module.exports.getAddressCoordinate=async( address )=>{
     const apikey=process.env.GOMAP_API_KEY;
     // const url=`https://maps.gomaps.pro/maps/api/geocode/json?key=${apikey}&address=${address}`;
-    setTimeout(()=>{},1000);
+    await sleep(1000);
     const url=`https://us1.locationiq.com/v1/search?key=${apikey}&q=${address}&format=json`
 
     try{
