@@ -24,6 +24,7 @@ module.exports.createRide=async(req,res)=>{
         console.log(pickupCoordinates);
 
         const captains=await redis.georadius('captains_locations', pickupCoordinates.lng, pickupCoordinates.ltd, 500, 'km');
+        console.log("captains: ",captains);
         ride.otp="";
         console.log('yes, mein bhi run hua');
         const rideFinal=await rideModel.findById(ride._id);
