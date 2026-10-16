@@ -16,8 +16,8 @@ const rideExpiryWorker= new Worker('ride-expiry-queue', async(job)=>{
 
 },{
     connection: {
-    host:"redis-16832.c241.us-east-1-4.ec2.cloud.redislabs.com",
-    port:16832,
+    host:"redis-12568.c264.ap-south-1-1.ec2.cloud.redislabs.com",
+    port:12568,
     username:"default",
     password:process.env.REDIS_PASSWORD,
 
