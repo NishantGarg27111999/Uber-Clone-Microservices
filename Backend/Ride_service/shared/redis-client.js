@@ -8,7 +8,7 @@ const redis = new Redis(process.env.REDIS_URL,{
 
 const rideExpiryQueue=new Queue('ride-expiry-queue',{
   connection:{
-    host:"redis-12568.c264.ap-south-1-1.ec2.cloud.redislabs.com:12568",
+    host:"redis-12568.c264.ap-south-1-1.ec2.cloud.redislabs.com",
     port:12568,
     password:process.env.REDIS_PASSWORD,
     username:"default"
