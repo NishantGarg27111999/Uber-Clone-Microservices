@@ -33,6 +33,8 @@ let initializeSocket = (server) => {
             console.log("gateway per new-ride subscriber run hua");
 
             const { ride, captains } = JSON.parse(message);
+            console.log('Ride_detail:', ride);
+            console.log('captains:', captains);
             for (const captain of captains) {
                 console.log('captain:', captain);
                 const socketId = await redis.get(`user_socket:${captain}`);
