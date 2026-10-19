@@ -68,6 +68,7 @@ let initializeSocket = (server) => {
 
             const userId = await redis.get(`socket_user:${socket.id}`);
             console.log('deleting:', socket.id);
+             console.log('deleting:', userId);
             if (userId) {
                 await redis.del(`user_socket:${userId}`);
                 await redis.del(`socket_user:${socket.id}`);
