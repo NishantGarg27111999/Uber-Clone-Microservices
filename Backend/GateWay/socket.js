@@ -64,7 +64,13 @@ let initializeSocket = (server) => {
 
         console.log('A client connected: ', socket.id);
 
-        socket.on('disconnect', async () => {
+        socket.on('disconnect', async (reason) => {
+
+            console.log('[SOCKET DISCONNECTED]', {
+            socketId: socket.id,
+            reason,
+            time: new Date().toISOString()
+        });
 
             const userId = await redis.get(`socket_user:${socket.id}`);
             console.log('deleting:', socket.id);
